@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 //Potential workflow for booking a room:
 // 1.Fetch Room Details - use a function to fetch the room price from the database
 // 2. Calculate the total cost - use a function that calculates the total cost, based on number of days and extra addons
@@ -13,8 +15,4 @@ $arrivalDate = "2025-01-05";
 $departureDate = "2025-01-12";
 
 //Starts a database connection
-$database = new PDO('sqlite:hotel.db');
-$statement = $database->query('SELECT * FROM rooms');
-
-$room = $statement->fetch(PDO::FETCH_ASSOC);
-// print_r($room);
+$database = new PDO('sqlite:' . __DIR__ . '/../database/hotel.db');
