@@ -25,24 +25,9 @@ function isRoomAvailable(PDO $database, int $roomId, string $arrivalDate, string
 }
 
 
-//Test variables
-$roomId = 1;
-$arrivalDate = "2025-01-11";
-$departureDate = "2025-01-12";
-
-// $isAvailable = isRoomAvailable($database, $roomId, $arrivalDate, $departureDate);
-
-// // Output the result
-// if ($isAvailable === true) {
-//     echo "Room is available!";
-// } else {
-//     echo "Room is not available.";
-// }
-
-
 //Test variables to used to save a booking
 $visitorName = 'Andersson';
-$arrivalDate = '2025 - 02 - 02';
+$arrivalDate = '2025-02-02';
 $departureDate = '2025-02-03';
 $roomId = 3;
 $transferCode = 'ABCD';
@@ -70,10 +55,8 @@ function saveBooking(PDO $database, string $visitorName, int $roomId, string $ar
     }
 }
 
-// saveBooking($database, $visitorName, $roomId, $arrivalDate, $departureDate, $transferCode);
 
-
-//function to fetch the room price from the database. Returns an associative array that contains the room prices
+//function to fetch the room price from the database. Returns an integer
 function getRoomPrices(PDO $database, int $roomId)
 {
     try {
@@ -89,4 +72,41 @@ function getRoomPrices(PDO $database, int $roomId)
 }
 
 
-echo $basePrice = getRoomPrices($database, 2);
+//function to calculate the number of days when doing a booking
+function calculateNumberOfDays($arrivalDate, $departureDate)
+{
+    // Convert date strings to timestamps
+    $arrivalTimestamp = strtotime($arrivalDate);
+    $departureTimestamp = strtotime($departureDate);
+
+    // Calculate the difference in seconds, then convert to days
+    $secondsDifference = $departureTimestamp - $arrivalTimestamp;
+    $daysBooked = $secondsDifference / (60 * 60 * 24); // Convert seconds to days
+
+    return (int)$daysBooked;
+}
+
+
+//function for calulate the total cost of the stay
+//needs to add the cost of add-ons later
+function totalCost(PDO $database, int $roomId, string $arrivalDate, string $departureDate): float
+{
+    $basePrice = getRoomPrices($database, $roomId);
+    $numberOfDays = calculateNumberOfDays($arrivalDate, $departureDate);
+    $total = $basePrice * $numberOfDays;
+
+    //Apply 30% discount for bookings longer than 3 days, remove comment to activate later!
+    // if ($numberOfDays > 3) {
+    //     $total *= 0.7; 
+    // }
+
+    return $total;
+}
+
+//testing variables
+$roomId = 2;
+$arrivalDate = '2025-01-11';
+$departureDate = '2025-01-15';
+// test for totalCost function
+$totalCost = totalCost($database, $roomId, $arrivalDate, $departureDate);
+echo "The total cost for your booking is: $totalCost";
