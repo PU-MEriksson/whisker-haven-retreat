@@ -30,15 +30,14 @@ $roomId = 1;
 $arrivalDate = "2025-01-11";
 $departureDate = "2025-01-12";
 
-$isAvailable = isRoomAvailable($database, $roomId, $arrivalDate, $departureDate);
-echo $isAvailable;
+// $isAvailable = isRoomAvailable($database, $roomId, $arrivalDate, $departureDate);
 
-// Output the result
-if ($isAvailable === true) {
-    echo "Room is available!";
-} else {
-    echo "Room is not available.";
-}
+// // Output the result
+// if ($isAvailable === true) {
+//     echo "Room is available!";
+// } else {
+//     echo "Room is not available.";
+// }
 
 
 //Test variables to used to save a booking
@@ -72,3 +71,22 @@ function saveBooking(PDO $database, string $visitorName, int $roomId, string $ar
 }
 
 // saveBooking($database, $visitorName, $roomId, $arrivalDate, $departureDate, $transferCode);
+
+
+//function to fetch the room price from the database. Returns an associative array that contains the room prices
+function getRoomPrices(PDO $database, int $roomId)
+{
+    try {
+        $query = 'SELECT type, price FROM rooms';
+        $statement = $database->prepare("SELECT * FROM rooms WHERE id = :room_id");
+        $statement->bindParam(':room_id', $roomId, PDO::PARAM_INT);
+        $statement->execute();
+        $roomPrices = $statement->fetch(PDO::FETCH_ASSOC);
+        return $roomPrices['price'];
+    } catch (PDOException $e) {
+        echo "Database Error: " . $e->getMessage(); //Ta bort denna sen!!
+    }
+}
+
+
+echo $basePrice = getRoomPrices($database, 2);
