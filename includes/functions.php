@@ -12,6 +12,16 @@ function sanitizeInput(string $input): string
 
 
 // Functions for bookings
+
+//Function to validate the input from the booking form
+function validateBookingInput(string $name, string $arrival, string $departure, int $roomId, string $transferCode): bool
+{
+    if (empty($name) || empty($arrival) || empty($departure) || $roomId <= 0 || empty($transferCode)) {
+        return false;
+    }
+    return true;
+}
+
 //Check if a room is available, returns true if rooms is available
 function isRoomAvailable(PDO $database, int $roomId, string $arrivalDate, string $departureDate): bool
 {
@@ -101,11 +111,3 @@ function totalCost(PDO $database, int $roomId, string $arrivalDate, string $depa
 
     return $total;
 }
-
-//testing variables
-$roomId = 2;
-$arrivalDate = '2025-01-11';
-$departureDate = '2025-01-15';
-// test for totalCost function
-$totalCost = totalCost($database, $roomId, $arrivalDate, $departureDate);
-echo "The total cost for your booking is: $totalCost";
