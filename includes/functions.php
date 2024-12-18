@@ -3,8 +3,15 @@
 declare(strict_types=1);
 require __DIR__ . '/../database/database.php'; //Connection to database
 
-// Functions for bookings
+//Function to sanitize input from forms
+function sanitizeInput(string $input): string
+{
+    return htmlspecialchars(trim($input));
+}
 
+
+
+// Functions for bookings
 //Check if a room is available, returns true if rooms is available
 function isRoomAvailable(PDO $database, int $roomId, string $arrivalDate, string $departureDate): bool
 {
@@ -23,14 +30,6 @@ function isRoomAvailable(PDO $database, int $roomId, string $arrivalDate, string
     // If the array is empty, the room is available
     return count($conflictingBookings) === 0;
 }
-
-
-//Test variables to used to save a booking
-$visitorName = 'Andersson';
-$arrivalDate = '2025-02-02';
-$departureDate = '2025-02-03';
-$roomId = 3;
-$transferCode = 'ABCD';
 
 
 //Function to add a booking to the database
