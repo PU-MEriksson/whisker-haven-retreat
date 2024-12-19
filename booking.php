@@ -29,17 +29,12 @@ if (isset($_POST['visitor_name'], $_POST['arrival_date'], $_POST['departure_date
 
             //Save booking
             saveBooking($database, $visitorName, $roomId, $arrivalDate, $departureDate, $transferCode);
-            echo "Your booking was saved";
+
             //Send json-response
+            $bookingResponse = getBookingResponse($arrivalDate, $departureDate, $totalCost);
+            createJsonResponse($bookingResponse);
         } else {
             echo "The room is not available on the selected dates";
         }
     }
-
-    //Test
-    echo "Name: $visitorName<br>";
-    echo "Arrival date: $arrivalDate <br>";
-    echo "Departure date: $departureDate <br>";
-    echo "Room id: $roomId <br>";
-    echo "Transfer code: $transferCode ";
 }
