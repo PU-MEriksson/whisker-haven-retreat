@@ -3,15 +3,34 @@
 declare(strict_types=1);
 require __DIR__ . '/../database/database.php'; //Connection to database
 
+
 //Function to sanitize input from forms
 function sanitizeInput(string $input): string
 {
     return htmlspecialchars(trim($input));
 }
 
+//Function for creating a booking message
+function getBookingResponse($arrivalDate, $departureDate, $totalCost): array
+{
+    $message = [
+        'island' => 'The name of my island',
+        'hotel' => 'The name of my hotel',
+        'arrival_date' => $arrivalDate,
+        'departure_date' => $departureDate,
+        'total_cost' => $totalCost,
+        'stars' => 2,
+        //Add features here
+        'additional_info' => [
+            'greeting' => 'Thank you for choosing our hotel!',
+            'image_url' => 'ImageURL'
+        ]
+    ];
 
+    return $message;
+}
 
-// Functions for bookings
+// Functions used for bookings:
 
 //Function to validate the input from the booking form
 function validateBookingInput(string $name, string $arrival, string $departure, int $roomId, string $transferCode): bool
