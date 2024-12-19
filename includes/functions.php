@@ -83,7 +83,6 @@ function saveBooking(PDO $database, string $visitorName, int $roomId, string $ar
 
     try {
         $statement->execute();
-        echo "Successful booking"; //Ta bort denna kod sen!
         return true;
     } catch (PDOException $e) {
         return "Error: " . $e->getMessage();
