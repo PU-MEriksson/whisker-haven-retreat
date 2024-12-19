@@ -10,6 +10,9 @@ function sanitizeInput(string $input): string
     return htmlspecialchars(trim($input));
 }
 
+
+// Functions used for bookings:
+
 //Function for creating a booking message
 function getBookingResponse($arrivalDate, $departureDate, $totalCost): array
 {
@@ -30,7 +33,11 @@ function getBookingResponse($arrivalDate, $departureDate, $totalCost): array
     return $message;
 }
 
-// Functions used for bookings:
+function createJsonResponse(array $data): void
+{
+    header('Content-Type: application/json');
+    echo json_encode($data, JSON_PRETTY_PRINT);
+}
 
 //Function to validate the input from the booking form
 function validateBookingInput(string $name, string $arrival, string $departure, int $roomId, string $transferCode): bool
