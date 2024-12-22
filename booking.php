@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+require_once __DIR__ . '/vendor/autoload.php';
 require __DIR__ . '/includes/functions.php';
 require __DIR__ . '/database/database.php';
 
@@ -22,19 +23,21 @@ if (isset($_POST['visitor_name'], $_POST['arrival_date'], $_POST['departure_date
             echo "The date for the arrival needs to be before the departure date";
         }
 
-        //Check if room is available
+        // Check if room is available
         if (isRoomAvailable($database, $roomId, $arrivalDate, $departureDate)) {
-
-            //Validate transfer code
-
-            //Save booking
-            saveBooking($database, $visitorName, $roomId, $arrivalDate, $departureDate, $transferCode);
-
-            //Send json-response
-            $bookingResponse = getBookingResponse($arrivalDate, $departureDate, $totalCost);
-            createJsonResponse($bookingResponse);
-        } else {
-            echo "The room is not available on the selected dates";
+            // Validate the transfer code
+            if (validateTransferCode($transferCode, $totalCost)) {
+                // Save the booking to the database
+                saveBooking($database, $visitorName, $roomId, $arrivalDate, $departureDate, $transferCode);
+                // Send a JSON response
+                $bookingResponse = getBookingResponse($arrivalDate, $departureDate, $totalCost);
+                createJsonResponse($bookingResponse);
+            } else {
+                // Print message if the transfercode isn't valid
+                echo "Invalid transfer code. Please try again.";
+            }
+        } else { //Print message if the room isn't available on the chosen date
+            echo "The room is not available on the selected dates.";
         }
     }
 }
