@@ -2,7 +2,36 @@
 
 declare(strict_types=1);
 require __DIR__ . '/../database/database.php'; //Connection to database
+use GuzzleHttp\Client;
 
+function validateTransferCode(string $transferCode, float $totalCost): bool
+{
+    $client = new Client();
+    $url = 'https://www.yrgopelago.se/centralbank/transferCode';
+
+    try {
+        // Skicka POST-förfrågan
+        $response = $client->post($url, [
+            'json' => [
+                'transferCode' => $transferCode,
+                'totalcost' => $totalCost,
+            ],
+            'headers' => [
+                'Content-Type' => 'application/json',
+            ],
+        ]);
+
+        // Tolka API-svaret
+        $responseData = json_decode($response->getBody()->getContents(), true);
+
+        // Kontrollera om status är "success"
+        return isset($responseData['status']) && $responseData['status'] === 'success';
+    } catch (Exception $e) {
+        // Skriv ut felet och returnera false vid misslyckande
+        echo "Error validating transfer code: " . $e->getMessage();
+        return false;
+    }
+}
 
 //Function to sanitize input from forms
 function sanitizeInput(string $input): string
@@ -11,7 +40,6 @@ function sanitizeInput(string $input): string
 }
 
 
-// Functions used for bookings:
 
 //Function for creating a booking message
 function getBookingResponse($arrivalDate, $departureDate, $totalCost): array
