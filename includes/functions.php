@@ -4,13 +4,14 @@ declare(strict_types=1);
 require __DIR__ . '/../database/database.php'; //Connection to database
 use GuzzleHttp\Client;
 
+//Function to validate the transfer code
 function validateTransferCode(string $transferCode, float $totalCost): bool
 {
     $client = new Client();
     $url = 'https://www.yrgopelago.se/centralbank/transferCode';
 
     try {
-        // Skicka POST-förfrågan
+        // Send a POST request
         $response = $client->post($url, [
             'json' => [
                 'transferCode' => $transferCode,
@@ -21,13 +22,13 @@ function validateTransferCode(string $transferCode, float $totalCost): bool
             ],
         ]);
 
-        // Tolka API-svaret
+        // Interpret the API response
         $responseData = json_decode($response->getBody()->getContents(), true);
 
-        // Kontrollera om status är "success"
+        // Check if the status is "success"
         return isset($responseData['status']) && $responseData['status'] === 'success';
     } catch (Exception $e) {
-        // Skriv ut felet och returnera false vid misslyckande
+        // Print the error and return false on failure
         echo "Error validating transfer code: " . $e->getMessage();
         return false;
     }
