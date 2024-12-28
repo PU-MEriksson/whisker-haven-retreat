@@ -2,11 +2,21 @@
 
 require_once __DIR__ . '/vendor/autoload.php';
 require __DIR__ . '/includes/header.php';
+require __DIR__ . '/includes/functions.php';
 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
-require_once __DIR__ . '/vendor/autoload.php';
+//Show the calender for room 1
+echo generateCalendar($database, 1, '2025-01-01');
+//Show the calender for room 2
+echo generateCalendar($database, 2, '2025-01-01');
+//Show the calender for room 3
+echo generateCalendar($database, 3, '2025-01-01');
+
+
+
+
 
 ?>
 

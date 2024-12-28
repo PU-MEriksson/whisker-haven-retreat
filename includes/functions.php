@@ -3,6 +3,56 @@
 declare(strict_types=1);
 require __DIR__ . '/../database/database.php'; //Connection to database
 use GuzzleHttp\Client;
+use benhall14\phpCalendar\Calendar;
+
+//Function for getting the the dates the rooms are booked
+function getBookedDates(PDO $database, int $roomId): array
+{
+    try {
+
+        $query = "
+            SELECT arrival_date, departure_date 
+            FROM bookings 
+            WHERE room_id = :room_id
+        ";
+
+        $statement = $database->prepare($query);
+        $statement->bindParam(':room_id', $roomId, PDO::PARAM_INT);
+        $statement->execute();
+        $bookedDates = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        return $bookedDates;
+    } catch (PDOException $e) {
+        // Logga eller hantera eventuella fel
+        echo "Database error: " . $e->getMessage();
+        return [];
+    }
+}
+
+//Function to generate a calender that shows when the rooms are available
+function generateCalendar(PDO $database, int $roomId, string $startDate, string $theme = 'purple'): string
+{
+    $calendar = new Calendar();
+    $calendar->useMondayStartingDate();
+
+    // Get the booked dates from the database
+    $rawEvents = getBookedDates($database, $roomId);
+
+    // Format the date to right format for the calender
+    $formattedEvents = array_map(function ($booking) {
+        return [
+            'start' => $booking['arrival_date'],  // Datum för incheckning
+            'end' => $booking['departure_date'],  // Datum för utcheckning
+            'mask' => true,                      // Om dagarna ska maskas
+        ];
+    }, $rawEvents);
+
+    // Add the booked dates to the calender
+    $calendar->addEvents($formattedEvents);
+
+    // Generate and return HTML for the calender
+    return $calendar->draw($startDate, $theme);
+}
 
 //Function to validate the transfer code
 function validateTransferCode(string $transferCode, float $totalCost): bool
