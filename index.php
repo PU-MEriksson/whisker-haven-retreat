@@ -7,21 +7,44 @@ require __DIR__ . '/includes/functions.php';
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
-//Show the calender for room 1
-echo generateCalendar($database, 1, '2025-01-01');
-//Show the calender for room 2
-echo generateCalendar($database, 2, '2025-01-01');
-//Show the calender for room 3
-echo generateCalendar($database, 3, '2025-01-01');
-
-
-
-
-
+// //Show the calender for room 1
+// echo generateCalendar($database, 1, '2025-01-01');
+// //Show the calender for room 2
+// echo generateCalendar($database, 2, '2025-01-01');
+// //Show the calender for room 3
+// echo generateCalendar($database, 3, '2025-01-01');
 ?>
 
-<body>
-    <section class="booking-section">
+<main>
+    <!-- Hero -->
+    <section class="hero">
+        <video autoplay muted loop playsinline class="background-video">
+            <source src="path-to-your-video.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <h1>Welcome to Whisker Haven Retreat </h1>
+        <p>Your purrfect getaway awaits!</p>
+        <a href="#booking" class="cta">Book Now</a>
+    </section>
+
+    <!-- Rooms-section -->
+    <section id="rooms">
+        <h2>Our rooms</h2>
+    </section>
+
+
+    <!-- About section -->
+    <section id="about">
+        <h2>About the Whisker Haven Retreat</h2>
+    </section>
+
+    <!-- Add-ons/Features -->
+    <section id="features">
+        <h2>Add-ons to your stay</h2>
+    </section>
+
+    <!-- Booking section -->
+    <section id="booking">
         <h2>Book your room</h2>
         <form method="POST" action="booking.php">
             <label for="visitor_name">Your Name:</label>
@@ -50,7 +73,8 @@ echo generateCalendar($database, 3, '2025-01-01');
 
         </form>
     </section>
-</body>
+</main>
+
 
 <?php
 require __DIR__ . '/includes/footer.php';
