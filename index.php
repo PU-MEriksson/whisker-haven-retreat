@@ -30,6 +30,23 @@ $dotenv->load();
         </div>
     </section>
 
+    <!-- About section -->
+    <section id="about">
+        <h2>About the Whisker Haven Retreat</h2>
+        <div class="about-container">
+            <img src="./assets/images/about-placeholder.jpg" alt="">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit earum hic in deserunt quae aliquid obcaecati laudantium enim voluptatum voluptas esse autem ab, rerum ipsum vel nam architecto repellendus iste?</p>
+        </div>
+        <div class="about-container middle">
+            <img src="./assets/images/about-placeholder.jpg" alt="">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit earum hic in deserunt quae aliquid obcaecati laudantium enim voluptatum voluptas esse autem ab, rerum ipsum vel nam architecto repellendus iste?</p>
+        </div>
+        <div class="about-container">
+            <img src="./assets/images/about-placeholder.jpg" alt="">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit earum hic in deserunt quae aliquid obcaecati laudantium enim voluptatum voluptas esse autem ab, rerum ipsum vel nam architecto repellendus iste?</p>
+        </div>
+    </section>
+
     <!-- Rooms-section -->
     <section id="rooms">
         <h2>Our rooms</h2>
@@ -56,15 +73,21 @@ $dotenv->load();
 
     </section>
 
-
-    <!-- About section -->
-    <section id="about">
-        <h2>About the Whisker Haven Retreat</h2>
-    </section>
-
     <!-- Add-ons/Features -->
     <section id="features">
         <h2>Add-ons to your stay</h2>
+        <div class="features-container">
+            <h3>Feature</h3>
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloribus alias tempora est incidunt, excepturi nobis, harum similique exercitationem at animi quasi nemo inventore sint ex iure eius iusto, reiciendis consequuntur!</p>
+        </div>
+        <div class="features-container">
+            <h3>Feature</h3>
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloribus alias tempora est incidunt, excepturi nobis, harum similique exercitationem at animi quasi nemo inventore sint ex iure eius iusto, reiciendis consequuntur!</p>
+        </div>
+        <div class="features-container">
+            <h3>Feature</h3>
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloribus alias tempora est incidunt, excepturi nobis, harum similique exercitationem at animi quasi nemo inventore sint ex iure eius iusto, reiciendis consequuntur!</p>
+        </div>
     </section>
 
     <!-- Booking section -->
