@@ -33,6 +33,27 @@ $dotenv->load();
     <!-- Rooms-section -->
     <section id="rooms">
         <h2>Our rooms</h2>
+        <div class="rooms-container">
+            <div class="room-selection">
+                <img src="./assets/images/placeholder-room.jpg" alt="Budget hotel room">
+                <h3>Budget</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel eius nostrum facilis laboriosam accusamus cupiditate quam, consequuntur aspernatur tempore placeat, soluta officia molestiae sit alias? Assumenda numquam aut sapiente quam!</p>
+                <a href="#booking" class="cta">Book Now</a>
+            </div>
+            <div class="room-selection">
+                <img src="/assets/images/placeholder-room.jpg" alt="Standard hotel room">
+                <h3>Standard</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel eius nostrum facilis laboriosam accusamus cupiditate quam, consequuntur aspernatur tempore placeat, soluta officia molestiae sit alias? Assumenda numquam aut sapiente quam!</p>
+                <a href="#booking" class="cta">Book Now</a>
+            </div>
+            <div class="room-selection">
+                <img src="/assets/images/placeholder-room.jpg" alt="Luxury hotel room">
+                <h3>Luxury</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel eius nostrum facilis laboriosam accusamus cupiditate quam, consequuntur aspernatur tempore placeat, soluta officia molestiae sit alias? Assumenda numquam aut sapiente quam!</p>
+                <a href="#booking" class="cta">Book Now</a>
+            </div>
+        </div>
+
     </section>
 
 

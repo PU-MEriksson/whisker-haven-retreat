@@ -11,12 +11,15 @@ body {
 :root {
   --primary-dark: #bc6266; /*logo, headlines, background */
   --primary-light: #ce8490; /*logo, headlines, buttons */
-  --neutral-dark: #d3c4b3; /*backgrounds */
-  --neutral-light: #e7b9ab; /*backgrounds*/
+  --neutral-light: #d3c4b3; /*backgrounds */
+  --neutral-dark: #e7b9ab; /*backgrounds*/
   --accent-color: #d27d54; /*buttons, sections that need to stand out*/
   --text-color: #33312e; /* text color */
 }
 
+main h2 {
+  font-size: 2rem;
+}
 /* Style for the hero section */
 .hero {
   position: relative;
@@ -91,4 +94,28 @@ body {
 
 .cta:active {
   transform: scale(0.98);
+}
+
+/* Room selection styling */
+
+#rooms {
+  background-color: var(--primary-light);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.room-selection {
+  display: flex;
+  flex-direction: column;
+  margin: 24px;
+  width: 350px;
+  background-color: var(--neutral-dark);
+  padding: 24px;
+  border-radius: 10px;
+}
+
+.rooms-container {
+  display: flex;
+  flex-direction: row;
 }
