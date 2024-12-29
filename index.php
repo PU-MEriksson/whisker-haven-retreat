@@ -19,12 +19,15 @@ $dotenv->load();
     <!-- Hero -->
     <section class="hero">
         <video autoplay muted loop playsinline class="background-video">
-            <source src="path-to-your-video.mp4" type="video/mp4">
-            Your browser does not support the video tag.
+            <source src="./assets/images/whisker-haven-retreat.mp4" type="video/mp4">
         </video>
-        <h1>Welcome to Whisker Haven Retreat </h1>
-        <p>Your purrfect getaway awaits!</p>
-        <a href="#booking" class="cta">Book Now</a>
+        <div class="hero-content">
+            <h1>Welcome to Whisker Haven Retreat</h1>
+            <p>Your purrfect getaway awaits!</p>
+        </div>
+        <div class="book-now">
+            <a href="#booking" class="cta">Book Now</a>
+        </div>
     </section>
 
     <!-- Rooms-section -->
