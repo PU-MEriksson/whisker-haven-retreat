@@ -76,17 +76,19 @@ $dotenv->load();
     <!-- Add-ons/Features -->
     <section id="features">
         <h2>Add-ons to your stay</h2>
-        <div class="features-container">
-            <h3>Feature</h3>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloribus alias tempora est incidunt, excepturi nobis, harum similique exercitationem at animi quasi nemo inventore sint ex iure eius iusto, reiciendis consequuntur!</p>
-        </div>
-        <div class="features-container">
-            <h3>Feature</h3>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloribus alias tempora est incidunt, excepturi nobis, harum similique exercitationem at animi quasi nemo inventore sint ex iure eius iusto, reiciendis consequuntur!</p>
-        </div>
-        <div class="features-container">
-            <h3>Feature</h3>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloribus alias tempora est incidunt, excepturi nobis, harum similique exercitationem at animi quasi nemo inventore sint ex iure eius iusto, reiciendis consequuntur!</p>
+        <div class="features">
+            <div class="features-container">
+                <h3>Feature</h3>
+                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloribus alias tempora est incidunt, excepturi nobis, harum similique exercitationem at animi quasi nemo inventore sint ex iure eius iusto, reiciendis consequuntur!</p>
+            </div>
+            <div class="features-container">
+                <h3>Feature</h3>
+                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloribus alias tempora est incidunt, excepturi nobis, harum similique exercitationem at animi quasi nemo inventore sint ex iure eius iusto, reiciendis consequuntur!</p>
+            </div>
+            <div class="features-container">
+                <h3>Feature</h3>
+                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloribus alias tempora est incidunt, excepturi nobis, harum similique exercitationem at animi quasi nemo inventore sint ex iure eius iusto, reiciendis consequuntur!</p>
+            </div>
         </div>
     </section>
 
