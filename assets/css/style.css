@@ -110,15 +110,24 @@ main h2 {
 .about-container {
   display: flex;
   margin: 24px;
-  gap: 24px;
+  gap: 32px;
 }
+
+.about-container article {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* justify-content: center; */
+  width: 40vw;
+}
+
 .middle {
   display: flex;
   flex-direction: row-reverse;
 }
 
 .about-container img {
-  max-width: 47%;
+  max-width: 40vw;
   height: auto;
   display: block;
   margin: 0 auto;
@@ -166,4 +175,82 @@ main h2 {
   margin-left: 24px;
   margin-right: 24px;
   margin-top: 0px;
+}
+
+/* Booking Section */
+#booking {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--primary-light);
+}
+
+.booking {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+}
+
+.booking-form {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--neutral-dark);
+  padding: 20px;
+  margin: 24px;
+  border-radius: 10px;
+  width: 40%;
+}
+
+.calender-container {
+  display: flex;
+  flex-direction: column;
+  margin: 24px;
+  background-color: var(--neutral-dark);
+  padding: 20px;
+  border-radius: 10px;
+  flex: 1; /* Ensures it shares space with .booking-form */
+  align-items: center;
+}
+
+/* Style the labels */
+.booking-form label {
+  font-size: 1rem;
+  color: var(--text-color);
+  margin-bottom: 8px; /* Adds space below each label */
+  font-weight: bold; /* Makes labels more prominent */
+}
+
+/* Style the inputs and select fields */
+.booking-form input,
+.booking-form select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 16px; /* Space between form elements */
+  border: 1px solid var(--neutral-light);
+  border-radius: 5px;
+  background-color: white;
+  font-size: 1rem;
+  color: var(--text-color);
+  box-sizing: border-box; /* Ensures padding doesn't overflow */
+}
+
+/* Style the submit button */
+.booking-form button {
+  padding: 10px 20px;
+  background-color: var(--accent-color);
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.booking-form button:hover {
+  background-color: var(--primary-dark); /* Slightly darker on hover */
+  transform: scale(1.05); /* Subtle zoom effect */
+}
+
+.booking-form button:active {
+  transform: scale(0.98); /* Shrink slightly on click */
 }

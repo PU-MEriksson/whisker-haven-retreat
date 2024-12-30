@@ -5,7 +5,7 @@
 .calendar {
   background: #2ca8c2;
   color: #fff;
-  width: 50%;
+  width: 100%;
   font-family: "Oxygen";
   table-layout: fixed;
 }
