@@ -22,6 +22,27 @@ body {
 main h2 {
   font-size: 2rem;
 }
+
+.navbar {
+  background-color: transparent;
+  position: sticky;
+  top: 0;
+}
+
+/* Style for navbar */
+.navbar ul {
+  display: flex;
+  justify-content: space-around;
+  list-style-type: none;
+  margin: 0; /* Optional: Remove default margin */
+  padding: 0;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: var(--text-color);
+}
+
 /* Style for the hero section */
 .hero {
   position: relative;

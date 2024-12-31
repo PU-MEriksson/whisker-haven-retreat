@@ -14,7 +14,7 @@
 
 <body>
     <header>
-        <nav>
+        <nav class="navbar">
             <ul>
                 <li><a href="#">Home</a></li>
                 <li><a href="#">Rooms</a></li>
