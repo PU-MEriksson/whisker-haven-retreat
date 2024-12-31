@@ -8,6 +8,7 @@ body {
   font-family: "Poppins", serif;
   line-height: 1.6;
   background-color: var(--neutral-dark);
+  overflow-x: hidden;
 }
 
 :root {
@@ -23,18 +24,26 @@ main h2 {
   font-size: 2rem;
 }
 
-.navbar {
-  background-color: transparent;
-  position: sticky;
-  top: 0;
+header {
+  width: 100%;
 }
 
-/* Style for navbar */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: var(--neutral-dark);
+  padding: 1rem 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
 .navbar ul {
   display: flex;
   justify-content: space-around;
   list-style-type: none;
-  margin: 0; /* Optional: Remove default margin */
+  margin: 0;
   padding: 0;
 }
 
@@ -166,8 +175,9 @@ main h2 {
 .room-selection {
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
   margin: 24px;
-  width: 350px;
+  width: 30vw;
   background-color: var(--neutral-dark);
   padding: 24px;
   border-radius: 10px;

@@ -57,28 +57,50 @@ $dotenv->load();
 
     <!-- Rooms-section -->
     <section id="rooms">
-        <h2>Our rooms</h2>
+        <h2>Our Rooms</h2>
         <div class="rooms-container">
+            <!-- Budget Room -->
             <div class="room-selection">
-                <img src="./assets/images/placeholder-room.jpg" alt="Budget hotel room">
-                <h3>Budget</h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel eius nostrum facilis laboriosam accusamus cupiditate quam, consequuntur aspernatur tempore placeat, soluta officia molestiae sit alias? Assumenda numquam aut sapiente quam!</p>
+                <img src="./assets/images/budget-room.png" alt="Budget hotel room">
+                <h3>Cozy Comfort on a Budget</h3>
+                <p>Experience the charm of The Whisker Haven Retreat without breaking the bank. Our Budget Rooms offer a snug and simple retreat featuring a queen-sized bed, minimalist decor, and cat-friendly touches like a small scratching post and cozy cat bed. Perfect for solo travelers or couples seeking an affordable stay while enjoying all the amenities of our tropical paradise.</p>
+                <ul>
+                    <li>Queen-sized bed</li>
+                    <li>Private bathroom</li>
+                    <li>Complimentary Wi-Fi</li>
+                    <li>Cat bed and scratching post</li>
+                </ul>
                 <a href="#booking" class="cta">Book Now</a>
             </div>
+
+            <!-- Standard Room -->
             <div class="room-selection">
-                <img src="/assets/images/placeholder-room.jpg" alt="Standard hotel room">
-                <h3>Standard</h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel eius nostrum facilis laboriosam accusamus cupiditate quam, consequuntur aspernatur tempore placeat, soluta officia molestiae sit alias? Assumenda numquam aut sapiente quam!</p>
+                <img src="./assets/images/standard-room.png" alt="Standard hotel room">
+                <h3>Purrfect Balance of Comfort and Style</h3>
+                <p>Our Standard Rooms are ideal for those who want a little extra space and luxury. Enjoy a king-sized bed, modern tropical decor, and a private balcony with stunning views of the lush island landscape. Cat lovers will appreciate the included climbing tree and cat toy set, ensuring your feline companions feel at home.</p>
+                <ul>
+                    <li>King-sized bed</li>
+                    <li>Private balcony with tropical views</li>
+                    <li>Cat climbing tree and toy set</li>
+                    <li>Complimentary breakfast</li>
+                </ul>
                 <a href="#booking" class="cta">Book Now</a>
             </div>
+
+            <!-- Luxury Room -->
             <div class="room-selection">
-                <img src="/assets/images/placeholder-room.jpg" alt="Luxury hotel room">
-                <h3>Luxury</h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel eius nostrum facilis laboriosam accusamus cupiditate quam, consequuntur aspernatur tempore placeat, soluta officia molestiae sit alias? Assumenda numquam aut sapiente quam!</p>
+                <img src="./assets/images/luxury-room.png" alt="Luxury hotel room">
+                <h3>Indulge in Ultimate Feline-Friendly Luxury</h3>
+                <p>For guests seeking a premium experience, our Luxury Rooms offer unmatched elegance and exclusivity. Bask in the spacious suite featuring a king-sized canopy bed, lavish tropical decor, and a personal outdoor jacuzzi. Your feline friends will adore the custom-designed cat play area and premium bedding. Treat yourself to the purrfect escape.</p>
+                <ul>
+                    <li>King-sized canopy bed</li>
+                    <li>Outdoor jacuzzi</li>
+                    <li>Premium cat play area</li>
+                    <li>Complimentary room service</li>
+                </ul>
                 <a href="#booking" class="cta">Book Now</a>
             </div>
         </div>
-
     </section>
 
     <!-- Add-ons/Features -->
