@@ -3,15 +3,10 @@
 require_once __DIR__ . '/vendor/autoload.php';
 require __DIR__ . '/includes/header.php';
 require __DIR__ . '/includes/functions.php';
+require __DIR__ . '/database/database.php';
 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
-
-
-// //Show the calender for room 2
-// echo generateCalendar($database, 2, '2025-01-01');
-// //Show the calender for room 3
-// echo generateCalendar($database, 3, '2025-01-01');
 ?>
 
 <main>
@@ -70,7 +65,7 @@ $dotenv->load();
                     <li>Complimentary Wi-Fi</li>
                     <li>Cat bed and scratching post</li>
                 </ul>
-                <a href="#booking" class="cta" data-room-id="1">Book Now</a>
+                <a href="#booking" class="cta" data-room-id="1">Choose Budget Room</a>
             </div>
 
             <!-- Standard Room -->
@@ -84,7 +79,7 @@ $dotenv->load();
                     <li>Cat climbing tree and toy set</li>
                     <li>Complimentary breakfast</li>
                 </ul>
-                <a href="#booking" class="cta" data-room-id="2">Book Now</a>
+                <a href="#booking" class="cta" data-room-id="2">Choose Standard Room</a>
             </div>
 
             <!-- Luxury Room -->
@@ -94,11 +89,11 @@ $dotenv->load();
                 <p>For guests seeking a premium experience, our Luxury Rooms offer unmatched elegance and exclusivity. Bask in the spacious suite featuring a king-sized canopy bed, lavish tropical decor, and a personal outdoor jacuzzi. Your feline friends will adore the custom-designed cat play area and premium bedding. Treat yourself to the purrfect escape.</p>
                 <ul>
                     <li>King-sized canopy bed</li>
-                    <li>Outdoor jacuzzi</li>
+                    <li>Indoor jacuzzi</li>
                     <li>Premium cat play area</li>
                     <li>Complimentary room service</li>
                 </ul>
-                <a href="#booking" class="cta" data-room-id="3">Book Now</a>
+                <a href="#booking" class="cta" data-room-id="3">Choose Luxury Room</a>
             </div>
         </div>
     </section>
@@ -111,16 +106,19 @@ $dotenv->load();
                 <img src="./assets/images/rubiks-cube2.png" alt="">
                 <h3>Rubik's cube</h3>
                 <p>Unwind and challenge your mind with our classic Rubik’s Cube! Whether you’re a beginner or a speedcubing pro, this timeless puzzle will keep you entertained during your stay. Complete the challenge and earn bonus points toward your tourist awards. It’s a fun way to relax and sharpen your skills</p>
+                <p>Price:</p>
             </div>
             <div class="features-container">
                 <img src="./assets/images/minibar.png" alt="">
                 <h3>Minibar</h3>
                 <p>Indulge in our premium minibar, stocked with refreshing beverages, tropical cocktails, and gourmet snacks. Perfect for a quiet evening in your room or a special celebration. Enjoy the taste of paradise at your convenience!</p>
+                <p>Price:</p>
             </div>
             <div class="features-container">
                 <img src="./assets/images/sibirian-cat.jpg" alt="">
                 <h3>Time with allergy-friendly cats</h3>
                 <p>Are you a cat lover but struggle with allergies? Spend time with our hypoallergenic Siberian cats in a privacy of your own room. Enjoy their playful, gentle nature without the worry of allergens. It’s a heartwarming and unique experience for cat enthusiasts!</p>
+                <p>Price:</p>
             </div>
         </div>
     </section>
@@ -145,6 +143,21 @@ $dotenv->load();
                     <option value="2">Standard Room</option>
                     <option value="3">Luxury Room</option>
                 </select>
+
+                <!-- Add-ons section -->
+                <?php
+                $addons = getAddons($database);
+                ?>
+                <div class="addons">
+                    <h3>Add-ons</h3>
+                    <?php foreach ($addons as $addon): ?>
+                        <label>
+                            <input type="checkbox" name="addons[]" value="<?= $addon['id']; ?>">
+                            <?= $addon['name']; ?> (Cost: <?= $addon['price']; ?>)
+                        </label>
+                    <?php endforeach; ?>
+                </div>
+                <!-- End of Add-ons section -->
 
                 <label for="transfer_code">Transfer Code:</label>
                 <input type="text" name="transfer_code" required>

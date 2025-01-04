@@ -245,33 +245,30 @@ header {
   background-color: var(--neutral-dark);
   padding: 20px;
   border-radius: 10px;
-  flex: 1; /* Ensures it shares space with .booking-form */
+  flex: 1;
   align-items: center;
 }
 
-/* Style the labels */
 .booking-form label {
   font-size: 1rem;
   color: var(--text-color);
-  margin-bottom: 8px; /* Adds space below each label */
-  font-weight: bold; /* Makes labels more prominent */
+  margin-bottom: 8px;
+  font-weight: bold;
 }
 
-/* Style the inputs and select fields */
 .booking-form input,
 .booking-form select {
   width: 100%;
   padding: 10px;
-  margin-bottom: 16px; /* Space between form elements */
+  margin-bottom: 16px;
   border: 1px solid var(--neutral-light);
   border-radius: 5px;
   background-color: white;
   font-size: 1rem;
   color: var(--text-color);
-  box-sizing: border-box; /* Ensures padding doesn't overflow */
+  box-sizing: border-box;
 }
 
-/* Style the submit button */
 .booking-form button {
   padding: 10px 20px;
   background-color: var(--accent-color);
@@ -284,12 +281,12 @@ header {
 }
 
 .booking-form button:hover {
-  background-color: var(--primary-dark); /* Slightly darker on hover */
-  transform: scale(1.05); /* Subtle zoom effect */
+  background-color: var(--primary-dark);
+  transform: scale(1.05);
 }
 
 .booking-form button:active {
-  transform: scale(0.98); /* Shrink slightly on click */
+  transform: scale(0.98);
 }
 
 /* Styling for footer */

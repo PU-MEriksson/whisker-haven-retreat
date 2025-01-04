@@ -6,11 +6,11 @@ use GuzzleHttp\Client;
 use benhall14\phpCalendar\Calendar;
 
 //Function that get the addons
-function getAddons(PDO $db): array
+function getAddons(PDO $database): array
 {
-    $stmt = $db->prepare("SELECT * FROM addons");
-    $stmt->execute();
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $statement = $database->prepare("SELECT * FROM addons");
+    $statement->execute();
+    return $statement->fetchAll(PDO::FETCH_ASSOC);
 }
 
 
