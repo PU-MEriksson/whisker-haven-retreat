@@ -5,6 +5,15 @@ require __DIR__ . '/../database/database.php'; //Connection to database
 use GuzzleHttp\Client;
 use benhall14\phpCalendar\Calendar;
 
+//Function that get the addons
+function getAddons(PDO $db): array
+{
+    $stmt = $db->prepare("SELECT * FROM addons");
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+
 //Function for getting the the dates the rooms are booked
 function getBookedDates(PDO $database, int $roomId): array
 {
