@@ -70,7 +70,7 @@ $dotenv->load();
                     <li>Complimentary Wi-Fi</li>
                     <li>Cat bed and scratching post</li>
                 </ul>
-                <a href="#booking" class="cta">Book Now</a>
+                <a href="#booking" class="cta" data-room-id="1">Book Now</a>
             </div>
 
             <!-- Standard Room -->
@@ -84,7 +84,7 @@ $dotenv->load();
                     <li>Cat climbing tree and toy set</li>
                     <li>Complimentary breakfast</li>
                 </ul>
-                <a href="#booking" class="cta">Book Now</a>
+                <a href="#booking" class="cta" data-room-id="2">Book Now</a>
             </div>
 
             <!-- Luxury Room -->
@@ -98,7 +98,7 @@ $dotenv->load();
                     <li>Premium cat play area</li>
                     <li>Complimentary room service</li>
                 </ul>
-                <a href="#booking" class="cta">Book Now</a>
+                <a href="#booking" class="cta" data-room-id="3">Book Now</a>
             </div>
         </div>
     </section>
@@ -108,16 +108,19 @@ $dotenv->load();
         <h2>Add-ons to your stay</h2>
         <div class="features">
             <div class="features-container">
-                <h3>Feature</h3>
-                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloribus alias tempora est incidunt, excepturi nobis, harum similique exercitationem at animi quasi nemo inventore sint ex iure eius iusto, reiciendis consequuntur!</p>
+                <img src="./assets/images/rubiks-cube2.png" alt="">
+                <h3>Rubik's cube</h3>
+                <p>Unwind and challenge your mind with our classic Rubik’s Cube! Whether you’re a beginner or a speedcubing pro, this timeless puzzle will keep you entertained during your stay. Complete the challenge and earn bonus points toward your tourist awards. It’s a fun way to relax and sharpen your skills</p>
             </div>
             <div class="features-container">
-                <h3>Feature</h3>
-                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloribus alias tempora est incidunt, excepturi nobis, harum similique exercitationem at animi quasi nemo inventore sint ex iure eius iusto, reiciendis consequuntur!</p>
+                <img src="./assets/images/minibar.png" alt="">
+                <h3>Minibar</h3>
+                <p>Indulge in our premium minibar, stocked with refreshing beverages, tropical cocktails, and gourmet snacks. Perfect for a quiet evening in your room or a special celebration. Enjoy the taste of paradise at your convenience!</p>
             </div>
             <div class="features-container">
-                <h3>Feature</h3>
-                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloribus alias tempora est incidunt, excepturi nobis, harum similique exercitationem at animi quasi nemo inventore sint ex iure eius iusto, reiciendis consequuntur!</p>
+                <img src="./assets/images/sibirian-cat.jpg" alt="">
+                <h3>Time with allergy-friendly cats</h3>
+                <p>Are you a cat lover but struggle with allergies? Spend time with our hypoallergenic Siberian cats in a privacy of your own room. Enjoy their playful, gentle nature without the worry of allergens. It’s a heartwarming and unique experience for cat enthusiasts!</p>
             </div>
         </div>
     </section>
@@ -144,8 +147,7 @@ $dotenv->load();
                 </select>
 
                 <label for="transfer_code">Transfer Code:</label>
-                <input type="text" name="transfer_code">
-                <!-- Add required for transfer code later!! -->
+                <input type="text" name="transfer_code" required>
                 <button type="submit">Book Now</button>
             </form>
             <div class="calender-container">
@@ -166,7 +168,7 @@ $dotenv->load();
         </div>
     </section>
 </main>
-
+<script src="./assets/js/script.js"></script>
 
 <?php
 require __DIR__ . '/includes/footer.php';

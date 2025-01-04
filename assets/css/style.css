@@ -198,6 +198,7 @@ header {
 
 .features {
   display: flex;
+  flex-direction: row;
 }
 
 .features-container {
@@ -206,6 +207,11 @@ header {
   margin-left: 24px;
   margin-right: 24px;
   margin-top: 0px;
+  max-width: 30vw;
+}
+
+.features-container img {
+  height: 300px;
 }
 
 /* Booking Section */
@@ -284,4 +290,73 @@ header {
 
 .booking-form button:active {
   transform: scale(0.98); /* Shrink slightly on click */
+}
+
+/* Styling for footer */
+footer {
+  background-color: var(--neutral-light);
+  color: var(--text-color);
+  padding: 40px 20px;
+}
+
+.footer-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.footer-container div {
+  flex: 1 1 200px;
+  margin: 10px;
+}
+
+.footer-container h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: var(--primary-dark);
+}
+
+.footer-container p,
+.footer-container a {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+.footer-container a:hover {
+  color: var(--primary-light);
+  text-decoration: underline;
+}
+
+.footer-links ul,
+.footer-social ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links ul li,
+.footer-social ul li {
+  margin-bottom: 10px;
+}
+
+.footer-social ul li a {
+  display: inline-block;
+  font-size: 1rem;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 0.9rem;
+  color: var(--text-color);
+  border-top: 1px solid var(--neutral-dark);
+  padding-top: 20px;
+}
+
+.footer-bottom p {
+  margin: 0;
 }
