@@ -5,12 +5,60 @@ require __DIR__ . '/../database/database.php'; //Connection to database
 use GuzzleHttp\Client;
 use benhall14\phpCalendar\Calendar;
 
+//Function that saves the addons to the booking
+function saveAddonsToBooking(PDO $database, int $bookingId, array $selectedAddons): void
+{
+    foreach ($selectedAddons as $addonId) {
+        // Kontrollera om kombinationen redan finns
+        $checkStmt = $database->prepare("SELECT COUNT(*) FROM booking_addons WHERE booking_id = :booking_id AND addon_id = :addon_id");
+        $checkStmt->execute([
+            'booking_id' => $bookingId,
+            'addon_id' => $addonId,
+        ]);
+
+        if ($checkStmt->fetchColumn() == 0) { // Om kombinationen inte finns
+            $stmt = $database->prepare("INSERT INTO booking_addons (booking_id, addon_id) VALUES (:booking_id, :addon_id)");
+            $stmt->execute([
+                'booking_id' => $bookingId,
+                'addon_id' => $addonId,
+            ]);
+        }
+    }
+}
+
 //Function that get the addons
 function getAddons(PDO $database): array
 {
     $statement = $database->prepare("SELECT * FROM addons");
     $statement->execute();
     return $statement->fetchAll(PDO::FETCH_ASSOC);
+}
+
+//Function to get which addons that are chosen when doing a booking
+function getAddonDetails(PDO $database, array $selectedAddons): array
+{
+    if (empty($selectedAddons)) {
+        return [];
+    }
+
+    $addonIds = implode(',', array_map('intval', $selectedAddons));
+    $stmt = $database->prepare("SELECT name, price FROM addons WHERE id IN ($addonIds)");
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+// REMEMBER TO TEST THIS!!!
+//Calculate cost for add-ons 
+function calculateAddonCost(array $selectedAddons, PDO $database): float
+{
+    if (empty($selectedAddons)) {
+        return 0.0;
+    }
+    $addonIds = implode(',', array_map('intval', $selectedAddons));
+    $stmt = $database->prepare("SELECT SUM(price) as total FROM addons WHERE id IN ($addonIds)");
+    $stmt->execute();
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $result['total'] ?? 0.0;
 }
 
 
@@ -102,7 +150,25 @@ function sanitizeInput(string $input): string
 
 
 //Function for creating a booking message
-function getBookingResponse($arrivalDate, $departureDate, $totalCost): array
+// function getBookingResponse($arrivalDate, $departureDate, $totalCost): array
+// {
+//     $message = [
+//         'island' => 'The name of my island',
+//         'hotel' => 'The name of my hotel',
+//         'arrival_date' => $arrivalDate,
+//         'departure_date' => $departureDate,
+//         'total_cost' => $totalCost,
+//         'stars' => 2,
+//         //Add features here
+//         'additional_info' => [
+//             'greeting' => 'Thank you for choosing our hotel!',
+//             'image_url' => 'ImageURL'
+//         ]
+//     ];
+
+//     return $message;
+// }
+function getBookingResponse($arrivalDate, $departureDate, $totalCost, array $addons = []): array
 {
     $message = [
         'island' => 'The name of my island',
@@ -111,11 +177,11 @@ function getBookingResponse($arrivalDate, $departureDate, $totalCost): array
         'departure_date' => $departureDate,
         'total_cost' => $totalCost,
         'stars' => 2,
-        //Add features here
+        'features' => $addons, // Lägg till valda add-ons här
         'additional_info' => [
             'greeting' => 'Thank you for choosing our hotel!',
-            'image_url' => 'ImageURL'
-        ]
+            'image_url' => 'ImageURL',
+        ],
     ];
 
     return $message;
@@ -158,7 +224,25 @@ function isRoomAvailable(PDO $database, int $roomId, string $arrivalDate, string
 
 //Function to add a booking to the database
 //Change variable names so they isn't the same used as in the isRoomAvailable function?
-function saveBooking(PDO $database, string $visitorName, int $roomId, string $arrivalDate, string $departureDate, string $transferCode): bool
+// function saveBooking(PDO $database, string $visitorName, int $roomId, string $arrivalDate, string $departureDate, string $transferCode): bool
+// {
+//     $query = 'INSERT INTO bookings (visitor_name, arrival_date, departure_date, room_id, transfer_code) VALUES (:visitor_name, :arrival_date, :departure_date, :room_id, :transfer_code)';
+//     $statement = $database->prepare($query);
+
+//     $statement->bindParam(':visitor_name', $visitorName, PDO::PARAM_STR);
+//     $statement->bindParam(':arrival_date', $arrivalDate, PDO::PARAM_STR);
+//     $statement->bindParam(':departure_date', $departureDate, PDO::PARAM_STR);
+//     $statement->bindParam(':room_id', $roomId, PDO::PARAM_INT);
+//     $statement->bindParam(':transfer_code', $transferCode, PDO::PARAM_STR);
+
+//     try {
+//         $statement->execute();
+//         return true;
+//     } catch (PDOException $e) {
+//         return "Error: " . $e->getMessage();
+//     }
+// }
+function saveBooking(PDO $database, string $visitorName, int $roomId, string $arrivalDate, string $departureDate, string $transferCode): int
 {
     $query = 'INSERT INTO bookings (visitor_name, arrival_date, departure_date, room_id, transfer_code) VALUES (:visitor_name, :arrival_date, :departure_date, :room_id, :transfer_code)';
     $statement = $database->prepare($query);
@@ -171,9 +255,10 @@ function saveBooking(PDO $database, string $visitorName, int $roomId, string $ar
 
     try {
         $statement->execute();
-        return true;
+        return (int) $database->lastInsertId(); // Returnera det nyss insatta ID:t
     } catch (PDOException $e) {
-        return "Error: " . $e->getMessage();
+        echo "Error: " . $e->getMessage();
+        return 0; // Returnera 0 som ett felvärde
     }
 }
 
@@ -211,16 +296,40 @@ function calculateNumberOfDays($arrivalDate, $departureDate)
 
 //function for calulate the total cost of the stay
 //needs to add the cost of add-ons later
-function totalCost(PDO $database, int $roomId, string $arrivalDate, string $departureDate): float
-{
-    $basePrice = getRoomPrices($database, $roomId);
-    $numberOfDays = calculateNumberOfDays($arrivalDate, $departureDate);
-    $total = $basePrice * $numberOfDays;
+// function totalCost(PDO $database, int $roomId, string $arrivalDate, string $departureDate): float
+// {
+//     $basePrice = getRoomPrices($database, $roomId);
+//     $numberOfDays = calculateNumberOfDays($arrivalDate, $departureDate);
+//     $total = $basePrice * $numberOfDays;
 
-    //Apply 30% discount for bookings longer than 3 days, remove comment to activate later!
-    // if ($numberOfDays > 3) {
-    //     $total *= 0.7; 
-    // }
+//     //Apply 30% discount for bookings longer than 3 days, remove comment to activate later!
+//     // if ($numberOfDays > 3) {
+//     //     $total *= 0.7; 
+//     // }
+
+//     return $total;
+// }
+function totalCost(PDO $database, int $roomId, string $arrivalDate, string $departureDate, array $selectedAddons = []): float
+{
+    // Hämta rumspriset från databasen
+    $basePrice = getRoomPrices($database, $roomId);
+
+    // Beräkna antal bokade dagar
+    $numberOfDays = calculateNumberOfDays($arrivalDate, $departureDate);
+
+    // Beräkna rumspriset för hela vistelsen
+    $roomCost = $basePrice * $numberOfDays;
+
+    // Beräkna kostnaden för valda tillval
+    $addonCost = calculateAddonCost($selectedAddons, $database);
+
+    // Totalkostnad = rumspris + kostnad för tillval
+    $total = $roomCost + $addonCost;
+
+    // Tillämpa 30% rabatt för vistelser längre än 3 dagar
+    if ($numberOfDays > 3) {
+        $total *= 0.7; // Rabatt på 30%
+    }
 
     return $total;
 }
