@@ -8,7 +8,7 @@ require __DIR__ . '/database/database.php';
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
-// Get room prices as an array with room id as key
+// Get room prices and the cost for add-ons
 $roomPrices = getAllRoomPrices($database);
 $addons = getAddons($database);
 ?>
@@ -20,7 +20,8 @@ $addons = getAddons($database);
             <source src="./assets/images/whisker-haven-retreat.mp4" type="video/mp4">
         </video>
         <div class="hero-content">
-            <h1>Welcome to Whisker Haven Retreat</h1>
+            <h1>Whisker Haven Retreat</h1>
+            <span class="stars">★★★</span>
             <p>Your purrfect getaway awaits!</p>
         </div>
         <div class="book-now">
