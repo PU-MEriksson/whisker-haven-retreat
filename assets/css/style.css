@@ -188,6 +188,10 @@ header {
   flex-direction: row;
 }
 
+.price {
+  font-weight: bold;
+}
+
 /* Features section styling */
 #features {
   display: flex;

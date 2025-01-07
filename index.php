@@ -7,6 +7,10 @@ require __DIR__ . '/database/database.php';
 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
+
+// Get room prices as an array with room id as key
+$roomPrices = getAllRoomPrices($database);
+$addons = getAddons($database);
 ?>
 
 <main>
@@ -65,6 +69,7 @@ $dotenv->load();
                     <li>Complimentary Wi-Fi</li>
                     <li>Cat bed and scratching post</li>
                 </ul>
+                <p class="price">Price per night: <?= $roomPrices[1]; ?></p>
                 <a href="#booking" class="cta" data-room-id="1">Choose Budget Room</a>
             </div>
 
@@ -79,6 +84,7 @@ $dotenv->load();
                     <li>Cat climbing tree and toy set</li>
                     <li>Complimentary breakfast</li>
                 </ul>
+                <p class="price">Price per night: <?= $roomPrices[2]; ?></p>
                 <a href="#booking" class="cta" data-room-id="2">Choose Standard Room</a>
             </div>
 
@@ -93,6 +99,7 @@ $dotenv->load();
                     <li>Premium cat play area</li>
                     <li>Complimentary room service</li>
                 </ul>
+                <p class="price">Price per night: <?= $roomPrices[3]; ?></p>
                 <a href="#booking" class="cta" data-room-id="3">Choose Luxury Room</a>
             </div>
         </div>
@@ -106,19 +113,22 @@ $dotenv->load();
                 <img src="./assets/images/rubiks-cube2.png" alt="">
                 <h3>Rubik's cube</h3>
                 <p>Unwind and challenge your mind with our classic Rubik’s Cube! Whether you’re a beginner or a speedcubing pro, this timeless puzzle will keep you entertained during your stay. Complete the challenge and earn bonus points toward your tourist awards. It’s a fun way to relax and sharpen your skills</p>
-                <p>Price:</p>
+                <p class="price">Price: <?= $addons[0]['price']; ?></p>
+                <a href="#booking" class="cta" feature-id="1">Add a rubik's cube</a>
             </div>
             <div class="features-container">
                 <img src="./assets/images/minibar.png" alt="">
                 <h3>Minibar</h3>
                 <p>Indulge in our premium minibar, stocked with refreshing beverages, tropical cocktails, and gourmet snacks. Perfect for a quiet evening in your room or a special celebration. Enjoy the taste of paradise at your convenience!</p>
-                <p>Price:</p>
+                <p class="price">Price: <?= $addons[1]['price']; ?></p>
+                <a href="#booking" class="cta" feature-id="2">Add a minibar</a>
             </div>
             <div class="features-container">
                 <img src="./assets/images/sibirian-cat.jpg" alt="">
-                <h3>Time with allergy-friendly cats</h3>
+                <h3>Allergic? No problem!</h3>
                 <p>Are you a cat lover but struggle with allergies? Spend time with our hypoallergenic Siberian cats in a privacy of your own room. Enjoy their playful, gentle nature without the worry of allergens. It’s a heartwarming and unique experience for cat enthusiasts!</p>
-                <p>Price:</p>
+                <p class="price">Price: <?= $addons[2]['price']; ?></p>
+                <a href="#booking" class="cta" feature-id="3">Add a Sibirian cat</a>
             </div>
         </div>
     </section>
@@ -139,14 +149,14 @@ $dotenv->load();
 
                 <label for="room_id">Room:</label>
                 <select name="room_id" required>
-                    <option value="1">Budget Room</option>
-                    <option value="2">Standard Room</option>
-                    <option value="3">Luxury Room</option>
+                    <option value="1">Budget Room - Cost: <?= $roomPrices[1]; ?></option>
+                    <option value="2">Standard Room - Cost: <?= $roomPrices[2]; ?></option>
+                    <option value="3">Luxury Room - Cost: <?= $roomPrices[3]; ?></option>
                 </select>
 
                 <!-- Add-ons section -->
                 <?php
-                $addons = getAddons($database);
+
                 ?>
                 <div class="addons">
                     <h3>Add-ons</h3>
