@@ -171,7 +171,12 @@ $addons = getAddons($database);
 
                 <label for="transfer_code">Transfer Code:</label>
                 <input type="text" name="transfer_code" required>
+                <div class="total-cost">
+                    <h3>Total Cost: <span id="total-cost">0</span></h3>
+                </div>
                 <button type="submit">Book Now</button>
+
+
             </form>
             <div class="calender-container">
                 <h3>Availability</h3>
@@ -191,7 +196,9 @@ $addons = getAddons($database);
         </div>
     </section>
 </main>
+<script src="./assets/js/js-data.php"></script>
 <script src="./assets/js/script.js"></script>
+
 
 <?php
 require __DIR__ . '/includes/footer.php';
