@@ -179,37 +179,19 @@ function sanitizeInput(string $input): string
 
 
 //Function for creating a booking message
-// function getBookingResponse($arrivalDate, $departureDate, $totalCost): array
-// {
-//     $message = [
-//         'island' => 'The name of my island',
-//         'hotel' => 'The name of my hotel',
-//         'arrival_date' => $arrivalDate,
-//         'departure_date' => $departureDate,
-//         'total_cost' => $totalCost,
-//         'stars' => 2,
-//         //Add features here
-//         'additional_info' => [
-//             'greeting' => 'Thank you for choosing our hotel!',
-//             'image_url' => 'ImageURL'
-//         ]
-//     ];
-
-//     return $message;
-// }
 function getBookingResponse($arrivalDate, $departureDate, $totalCost, array $addons = []): array
 {
     $message = [
-        'island' => 'The name of my island',
-        'hotel' => 'The name of my hotel',
+        'island' => 'Purradise Island',
+        'hotel' => 'Whisker Haven Retreat',
         'arrival_date' => $arrivalDate,
         'departure_date' => $departureDate,
         'total_cost' => $totalCost,
-        'stars' => 2,
-        'features' => $addons, // Lägg till valda add-ons här
+        'stars' => 3,
+        'features' => $addons,
         'additional_info' => [
-            'greeting' => 'Thank you for choosing our hotel!',
-            'image_url' => 'ImageURL',
+            'greeting' => 'Thank you for staying at Whisker Haven Retreat!',
+            'image_url' => 'https://c.tenor.com/HofsbGhfgAEAAAAd/tenor.gif',
         ],
     ];
 
@@ -341,11 +323,6 @@ function totalCost(PDO $database, int $roomId, string $arrivalDate, string $depa
 
     // Totalkostnad = rumspris + kostnad för tillval
     $total = $roomCost + $addonCost;
-
-    // Tillämpa 30% rabatt för vistelser längre än 3 dagar
-    // if ($numberOfDays > 3) {
-    //     $total *= 0.7; // Rabatt på 30%
-    // }
 
     return $total;
 }
