@@ -98,9 +98,9 @@ function generateCalendar(PDO $database, int $roomId, string $startDate, string 
     // Format the date to right format for the calender
     $formattedEvents = array_map(function ($booking) {
         return [
-            'start' => $booking['arrival_date'],  // Datum för incheckning
-            'end' => $booking['departure_date'],  // Datum för utcheckning
-            'mask' => true,                      // Om dagarna ska maskas
+            'start' => $booking['arrival_date'],
+            'end' => $booking['departure_date'],
+            'mask' => true,
         ];
     }, $rawEvents);
 
@@ -137,6 +137,35 @@ function validateTransferCode(string $transferCode, float $totalCost): bool
     } catch (Exception $e) {
         // Print the error and return false on failure
         echo "Error validating transfer code: " . $e->getMessage();
+        return false;
+    }
+}
+
+//Function to do a deposit to the central bank
+function depositFunds(string $transferCode, int $numberOfDays): bool
+{
+    $client = new Client();
+    $url = 'https://www.yrgopelago.se/centralbank/deposit';
+
+    try {
+        $response = $client->post($url, [
+            'json' => [
+                'user' => 'Malin',
+                'transferCode' => $transferCode,
+                'numberOfDays' => $numberOfDays,
+            ],
+            'headers' => [
+                'Content-Type' => 'application/json',
+            ],
+        ]);
+
+        $responseData = json_decode($response->getBody()->getContents(), true);
+
+        // Return true if the deposit was successful
+        return isset($responseData['status']) && $responseData['status'] === 'success';
+    } catch (Exception $e) {
+        // Log or print the error
+        echo "Error making deposit: " . $e->getMessage();
         return false;
     }
 }
@@ -222,26 +251,6 @@ function isRoomAvailable(PDO $database, int $roomId, string $arrivalDate, string
 }
 
 
-//Function to add a booking to the database
-//Change variable names so they isn't the same used as in the isRoomAvailable function?
-// function saveBooking(PDO $database, string $visitorName, int $roomId, string $arrivalDate, string $departureDate, string $transferCode): bool
-// {
-//     $query = 'INSERT INTO bookings (visitor_name, arrival_date, departure_date, room_id, transfer_code) VALUES (:visitor_name, :arrival_date, :departure_date, :room_id, :transfer_code)';
-//     $statement = $database->prepare($query);
-
-//     $statement->bindParam(':visitor_name', $visitorName, PDO::PARAM_STR);
-//     $statement->bindParam(':arrival_date', $arrivalDate, PDO::PARAM_STR);
-//     $statement->bindParam(':departure_date', $departureDate, PDO::PARAM_STR);
-//     $statement->bindParam(':room_id', $roomId, PDO::PARAM_INT);
-//     $statement->bindParam(':transfer_code', $transferCode, PDO::PARAM_STR);
-
-//     try {
-//         $statement->execute();
-//         return true;
-//     } catch (PDOException $e) {
-//         return "Error: " . $e->getMessage();
-//     }
-// }
 function saveBooking(PDO $database, string $visitorName, int $roomId, string $arrivalDate, string $departureDate, string $transferCode): int
 {
     $query = 'INSERT INTO bookings (visitor_name, arrival_date, departure_date, room_id, transfer_code) VALUES (:visitor_name, :arrival_date, :departure_date, :room_id, :transfer_code)';
@@ -255,16 +264,36 @@ function saveBooking(PDO $database, string $visitorName, int $roomId, string $ar
 
     try {
         $statement->execute();
-        return (int) $database->lastInsertId(); // Returnera det nyss insatta ID:t
+        return (int) $database->lastInsertId();
     } catch (PDOException $e) {
         echo "Error: " . $e->getMessage();
-        return 0; // Returnera 0 som ett felvärde
+        return 0;
     }
 }
 
+//Function to get all room prices as an array to use for showing the price on website
+function getAllRoomPrices(PDO $database): array
+{
+    try {
+        $query = 'SELECT id, type, price FROM rooms';
+        $statement = $database->prepare($query);
+        $statement->execute();
+        $rooms = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-//function to fetch the room price from the database. Returns an integer
-function getRoomPrices(PDO $database, int $roomId)
+        // Return price as an array with room id as key
+        $roomPrices = [];
+        foreach ($rooms as $room) {
+            $roomPrices[$room['id']] = $room['price'];
+        }
+        return $roomPrices;
+    } catch (PDOException $e) {
+        error_log("Database Error: " . $e->getMessage());
+        return []; // If error, return an empty array 
+    }
+}
+
+//function to fetch the room price for a single room from the database. 
+function getRoomPrices(PDO $database, int $roomId): int
 {
     try {
         $query = 'SELECT type, price FROM rooms';
@@ -277,6 +306,7 @@ function getRoomPrices(PDO $database, int $roomId)
         echo "Database Error: " . $e->getMessage(); //Ta bort denna sen!!
     }
 }
+
 
 
 //function to calculate the number of days when doing a booking
@@ -295,20 +325,6 @@ function calculateNumberOfDays($arrivalDate, $departureDate)
 
 
 //function for calulate the total cost of the stay
-//needs to add the cost of add-ons later
-// function totalCost(PDO $database, int $roomId, string $arrivalDate, string $departureDate): float
-// {
-//     $basePrice = getRoomPrices($database, $roomId);
-//     $numberOfDays = calculateNumberOfDays($arrivalDate, $departureDate);
-//     $total = $basePrice * $numberOfDays;
-
-//     //Apply 30% discount for bookings longer than 3 days, remove comment to activate later!
-//     // if ($numberOfDays > 3) {
-//     //     $total *= 0.7; 
-//     // }
-
-//     return $total;
-// }
 function totalCost(PDO $database, int $roomId, string $arrivalDate, string $departureDate, array $selectedAddons = []): float
 {
     // Hämta rumspriset från databasen
@@ -327,9 +343,9 @@ function totalCost(PDO $database, int $roomId, string $arrivalDate, string $depa
     $total = $roomCost + $addonCost;
 
     // Tillämpa 30% rabatt för vistelser längre än 3 dagar
-    if ($numberOfDays > 3) {
-        $total *= 0.7; // Rabatt på 30%
-    }
+    // if ($numberOfDays > 3) {
+    //     $total *= 0.7; // Rabatt på 30%
+    // }
 
     return $total;
 }
