@@ -25,7 +25,7 @@ $addons = getAddons($database);
             <p>Your purrfect getaway awaits!</p>
         </div>
         <div class="book-now">
-            <a href="#booking" class="cta">Book Now</a>
+            <a href="#rooms" class="cta">Choose your room</a>
         </div>
     </section>
 
@@ -176,9 +176,9 @@ $addons = getAddons($database);
                     <h3>Total Cost: <span id="total-cost">0</span></h3>
                 </div>
                 <button type="submit">Book Now</button>
-
-
             </form>
+
+
             <div class="calender-container">
                 <h3>Availability</h3>
                 <h4>Budget</h4>

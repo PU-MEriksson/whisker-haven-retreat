@@ -16,10 +16,9 @@
     <header>
         <nav class="navbar">
             <ul>
-                <li><a href="#">Home</a></li>
                 <li><a href="#about">About Us</a></li>
                 <li><a href="#rooms">Our Rooms</a></li>
-                <li><a href="#features">Features</a></li>
+                <li><a href="#features">Add-ons</a></li>
                 <li><a href="#booking">Book Now</a></li>
             </ul>
         </nav>

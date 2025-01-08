@@ -27,16 +27,6 @@
                     <li><a href="#booking">Book Now</a></li>
                 </ul>
             </div>
-
-            <!-- Social Media -->
-            <!-- <div class="footer-social">
-                <h3>Follow Us</h3>
-                <ul class="social-links">
-                    <li><a href="https://www.facebook.com" target="_blank">Facebook</a></li>
-                    <li><a href="https://www.instagram.com" target="_blank">Instagram</a></li>
-                    <li><a href="https://www.twitter.com" target="_blank">Twitter</a></li>
-                </ul>
-            </div> -->
         </div>
         <div class="footer-bottom">
             <p>&copy; 2025 The Whisker Haven Retreat. All rights reserved.</p>

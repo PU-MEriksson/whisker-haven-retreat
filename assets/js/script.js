@@ -15,20 +15,20 @@ document.querySelectorAll(".rooms-container .cta").forEach((button) => {
 });
 
 // Get the chosen feature pre-filled when choosing an add-on
-document.querySelectorAll(".features-container .cta").forEach((button) => {
-  button.addEventListener("click", (event) => {
-    // Get the feature id from the button
-    const featureId = event.target.getAttribute("feature-id");
+// document.querySelectorAll(".features-container .cta").forEach((button) => {
+//   button.addEventListener("click", (event) => {
+//     // Get the feature id from the button
+//     const featureId = event.target.getAttribute("feature-id");
 
-    // Update the booking form's add-ons
-    const addonCheckbox = document.querySelector(
-      `form.booking-form input[name="addons[]"][value="${featureId}"]`
-    );
-    if (addonCheckbox) {
-      addonCheckbox.checked = true; // Mark the checkbox as selected
-    }
-  });
-});
+//     // Update the booking form's add-ons
+//     const addonCheckbox = document.querySelector(
+//       `form.booking-form input[name="addons[]"][value="${featureId}"]`
+//     );
+//     if (addonCheckbox) {
+//       addonCheckbox.checked = true; // Mark the checkbox as selected
+//     }
+//   });
+// });
 
 //Script that calculates the total cost and shows it to the user before doing a booking
 document.addEventListener("DOMContentLoaded", () => {
@@ -49,13 +49,6 @@ document.addEventListener("DOMContentLoaded", () => {
       totalCost += roomPrices[selectedRoomId];
     }
 
-    // Add price for chosen add-ons
-    addonsCheckboxes.forEach((checkbox) => {
-      if (checkbox.checked) {
-        totalCost += addonPrices[checkbox.value];
-      }
-    });
-
     // Calculate the number of nights
     const arrivalDate = new Date(arrivalDateInput.value);
     const departureDate = new Date(departureDateInput.value);
@@ -67,11 +60,18 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
 
+    // Add price for chosen add-ons (only once per booking)
+    addonsCheckboxes.forEach((checkbox) => {
+      if (checkbox.checked) {
+        totalCost += addonPrices[checkbox.value];
+      }
+    });
+
     // Show the total cost
     totalCostElement.textContent = totalCost.toFixed(2);
   }
 
-  // Add event listeners that looks for changes made
+  // Add event listeners that look for changes made
   roomSelect.addEventListener("change", calculateTotalCost);
   addonsCheckboxes.forEach((checkbox) => {
     checkbox.addEventListener("change", calculateTotalCost);

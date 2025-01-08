@@ -1,12 +1,21 @@
+:root {
+  --primary-dark: #bc6266; /*logo, headlines, background */
+  --primary-light: #ce8490; /*logo, headlines, buttons */
+  --neutral-light: #d3c4b3; /*backgrounds */
+  --neutral-dark: #e7b9ab; /*backgrounds*/
+  --accent-color: #d27d54; /*buttons, sections that need to stand out*/
+  --text-color: #33312e; /* text color */
+}
+
 .weekly-calendar {
   max-width: 850px;
 }
 
 .calendar {
-  background: #2ca8c2;
-  color: #fff;
+  background: var(--primary-light);
+  color: var(--text-color);
   width: 100%;
-  font-family: "Oxygen";
+  font-family: "Poppins";
   table-layout: fixed;
 }
 
@@ -43,7 +52,7 @@
   font-weight: bold;
   padding: 20px;
   text-align: center;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   background: rgba(0, 0, 0, 0.05);
 }
 
@@ -85,7 +94,7 @@
 .calendar tbody tr td.mask-start,
 .calendar tbody tr td.mask,
 .calendar tbody tr td.mask-end {
-  background: #2222c2;
+  background: rgb(159, 54, 54);
 }
 
 .calendar .cal-weekview-time {

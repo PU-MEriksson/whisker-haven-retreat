@@ -87,7 +87,7 @@ function getBookedDates(PDO $database, int $roomId): array
 }
 
 //Function to generate a calender that shows when the rooms are available
-function generateCalendar(PDO $database, int $roomId, string $startDate, string $theme = 'purple'): string
+function generateCalendar(PDO $database, int $roomId, string $startDate): string
 {
     $calendar = new Calendar();
     $calendar->useMondayStartingDate();
@@ -108,7 +108,7 @@ function generateCalendar(PDO $database, int $roomId, string $startDate, string 
     $calendar->addEvents($formattedEvents);
 
     // Generate and return HTML for the calender
-    return $calendar->draw($startDate, $theme);
+    return $calendar->draw($startDate);
 }
 
 //Function to validate the transfer code
