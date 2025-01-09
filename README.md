@@ -6,10 +6,48 @@
 
 ## 🌟 Features
 
-- **Room Booking**: Choose between Budget, Standard, and Luxury rooms
-- **Add-ons**: Enhance your stay with add-ons like Rubik's cubes or Siberian cats for allergic guests
-- **Calendar Availability**: View room availability for January 2025
-- **Dynamic Pricing**: Total cost calculation includes room price, add-ons, and discounts
+- **Room Management**:
+
+  - Three distinct room types: Budget, Standard, and Luxury
+  - Visual calendar display for each room type
+  - Detailed room descriptions and amenities
+
+- **Booking System**:
+
+  - Secure booking validation and processing
+  - Date range selection for January 2025
+  - Conflict checking for room availability
+  - JSON booking confirmation responses
+  - Transfer code validation with Central Bank
+  - Automated fund deposits for confirmed bookings
+
+- **Pricing Features**:
+
+  - Dynamic pricing for different room types
+  - Add-on cost calculation
+  - Total cost computation including all features
+  - Add-on management system with flexible pricing
+
+- **User Interface**:
+
+  - Interactive booking form
+  - Real-time availability calendars
+  - Responsive hero section with video background
+  - Visual room comparison tool
+  - Rich media integration (images and video)
+
+- **Security Features**:
+
+  - Input sanitization
+  - Environment variable protection
+  - Transfer code validation
+  - PDO database security
+
+- **Integration**:
+  - Yrgopelago Central Bank API integration
+  - Custom calendar integration using php-calendar
+  - Guzzle HTTP client for API communication
+  - Environmental configuration with PHP dotenv
 
 ## 🔧 Tech Stack
 
@@ -24,7 +62,7 @@
 
 ## 📂 Project Structure
 
-````plaintext
+```plaintext
 ├── database/
 │   ├── hotel.db         # SQLite database
 ├── includes/
@@ -35,13 +73,14 @@
 │   ├── images/          # Images used in the project
 │   ├── js/              # JavaScript files
 ├── booking.php          # Handles booking logic
-├── index.php            # Main entry point
-├── LICENSE              # Project license
-├── README.md            # Project documentation
+├── index.php           # Main entry point
+├── LICENSE             # Project license
+├── README.md           # Project documentation
+```
 
 ## 🗂️ Database Schema
 
-Here’s an overview of the database structure:
+Here's an overview of the database structure:
 
 ### `bookings`
 
@@ -74,21 +113,26 @@ Here’s an overview of the database structure:
 ## 💻 How to Run Locally
 
 1. Clone this repository:
+
    ```bash
-   git clone https://github.com/yourusername/whisker-haven-retreat.git
+   git clone https://github.com/PU-MEriksson/whisker-haven-retreat.git
    cd whisker-haven-retreat
+   ```
 
 2. Install dependencies using Composer:
+
    ```bash
    composer install
+   ```
 
 3. Start the PHP development server:
-    ```bash
+
+   ```bash
    php -S localhost:8000
+   ```
 
 4. Open http://localhost:8000 in your browser.
 
 ## 📜 License
 
 This project is licensed under the MIT License.
-````
