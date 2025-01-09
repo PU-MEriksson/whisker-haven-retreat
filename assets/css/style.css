@@ -337,6 +337,10 @@ header {
   transform: scale(0.98);
 }
 
+.total-cost h3 {
+  color: var(--text-color);
+}
+
 /* Styling for footer */
 footer {
   background-color: var(--neutral-light);
