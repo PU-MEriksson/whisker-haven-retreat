@@ -87,9 +87,9 @@
   min-height: 25px;
 }
 
-.calendar tbody tr td.today {
+/* .calendar tbody tr td.today {
   background: rgba(0, 0, 0, 0.25);
-}
+} */
 
 .calendar tbody tr td.mask-start,
 .calendar tbody tr td.mask,
