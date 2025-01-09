@@ -32,7 +32,6 @@ function saveBooking(PDO $database, string $visitorName, int $roomId, string $ar
         $statement->execute();
         return (int) $database->lastInsertId();
     } catch (PDOException $e) {
-        echo "Error: " . $e->getMessage();
         return 0;
     }
 }
@@ -53,15 +52,14 @@ function isRoomAvailable(PDO $database, int $roomId, string $arrivalDate, string
 {
     $query = "SELECT id FROM bookings WHERE room_id = :room_id AND ((arrival_date < :departure_date AND departure_date > :arrival_date))";
     $statement = $database->prepare($query);
-
     $statement->bindParam(':room_id', $roomId, PDO::PARAM_INT);
     $statement->bindParam(':arrival_date', $arrivalDate, PDO::PARAM_STR);
     $statement->bindParam(':departure_date', $departureDate, PDO::PARAM_STR);
-
     $statement->execute();
     $conflictingBookings = $statement->fetchAll(PDO::FETCH_ASSOC);
     return count($conflictingBookings) === 0;
 }
+
 
 // ============================
 // PRICING AND COST CALCULATIONS
@@ -93,7 +91,7 @@ function totalCost(PDO $database, int $roomId, string $arrivalDate, string $depa
 }
 
 // Retrieves the price for a specific room
-// Return price of the room
+// Return price of the room or 0 if it fails
 function getRoomPrices(PDO $database, int $roomId): int
 {
     try {
@@ -103,7 +101,7 @@ function getRoomPrices(PDO $database, int $roomId): int
         $roomPrices = $statement->fetch(PDO::FETCH_ASSOC);
         return $roomPrices['price'];
     } catch (PDOException $e) {
-        echo "Database Error: " . $e->getMessage();
+        return 0;
     }
 }
 
@@ -123,13 +121,12 @@ function getAllRoomPrices(PDO $database): array
         }
         return $roomPrices;
     } catch (PDOException $e) {
-        error_log("Database Error: " . $e->getMessage());
         return [];
     }
 }
 
 // ============================
-// ADD-ON MANAGEMENT
+// ADD-ON/FEATURES MANAGEMENT
 // ============================
 
 // Saves selected add-ons to database
@@ -204,7 +201,7 @@ function generateCalendar(PDO $database, int $roomId, string $startDate): string
         $calendar->addEvents($formattedEvents);
         return $calendar->draw($startDate);
     } catch (Exception $e) {
-        return "<p>Calendar unavailable due to an error. Please contact support.</p>";
+        return "<p>Calendar unavailable due to an error.</p>";
     }
 }
 
@@ -219,7 +216,6 @@ function getBookedDates(PDO $database, int $roomId): array
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
-        echo "Database error: " . $e->getMessage();
         return [];
     }
 }
@@ -259,7 +255,6 @@ function validateTransferCode(string $transferCode, float $totalCost): bool
         $responseData = json_decode($response->getBody()->getContents(), true);
         return isset($responseData['status']) && $responseData['status'] === 'success';
     } catch (Exception $e) {
-        echo "Error validating transfer code: " . $e->getMessage();
         return false;
     }
 }
@@ -286,7 +281,6 @@ function depositFunds(string $transferCode, int $numberOfDays): bool
         $responseData = json_decode($response->getBody()->getContents(), true);
         return isset($responseData['status']) && $responseData['status'] === 'success';
     } catch (Exception $e) {
-        echo "Error making deposit: " . $e->getMessage();
         return false;
     }
 }
