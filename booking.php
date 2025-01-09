@@ -53,7 +53,7 @@ if (isset($_POST['visitor_name'], $_POST['arrival_date'], $_POST['departure_date
     }
 
     // Save booking to database
-    $bookingId = saveBooking($database, $visitorName, $roomId, $arrivalDate, $departureDate, $transferCode);
+    $bookingId = saveBooking($database, $visitorName, $roomId, $arrivalDate, $departureDate, $transferCode, $totalCost);
 
     // If booking is successful:
     // 1. Save add-ons to the database.

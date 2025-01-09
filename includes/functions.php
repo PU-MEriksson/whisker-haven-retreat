@@ -17,9 +17,28 @@ use benhall14\phpCalendar\Calendar;
 
 // Saves a new booking to the database
 // Returns the ID of the newly created booking, or 0 if creation fails
-function saveBooking(PDO $database, string $visitorName, int $roomId, string $arrivalDate, string $departureDate, string $transferCode): int
+// function saveBooking(PDO $database, string $visitorName, int $roomId, string $arrivalDate, string $departureDate, string $transferCode): int
+// {
+//     $query = 'INSERT INTO bookings (visitor_name, arrival_date, departure_date, room_id, transfer_code) VALUES (:visitor_name, :arrival_date, :departure_date, :room_id, :transfer_code)';
+//     $statement = $database->prepare($query);
+
+//     $statement->bindParam(':visitor_name', $visitorName, PDO::PARAM_STR);
+//     $statement->bindParam(':arrival_date', $arrivalDate, PDO::PARAM_STR);
+//     $statement->bindParam(':departure_date', $departureDate, PDO::PARAM_STR);
+//     $statement->bindParam(':room_id', $roomId, PDO::PARAM_INT);
+//     $statement->bindParam(':transfer_code', $transferCode, PDO::PARAM_STR);
+
+//     try {
+//         $statement->execute();
+//         return (int) $database->lastInsertId();
+//     } catch (PDOException $e) {
+//         return 0;
+//     }
+// }
+function saveBooking(PDO $database, string $visitorName, int $roomId, string $arrivalDate, string $departureDate, string $transferCode, float $totalCost): int
 {
-    $query = 'INSERT INTO bookings (visitor_name, arrival_date, departure_date, room_id, transfer_code) VALUES (:visitor_name, :arrival_date, :departure_date, :room_id, :transfer_code)';
+    $query = 'INSERT INTO bookings (visitor_name, arrival_date, departure_date, room_id, transfer_code, cost) 
+              VALUES (:visitor_name, :arrival_date, :departure_date, :room_id, :transfer_code, :cost)';
     $statement = $database->prepare($query);
 
     $statement->bindParam(':visitor_name', $visitorName, PDO::PARAM_STR);
@@ -27,11 +46,13 @@ function saveBooking(PDO $database, string $visitorName, int $roomId, string $ar
     $statement->bindParam(':departure_date', $departureDate, PDO::PARAM_STR);
     $statement->bindParam(':room_id', $roomId, PDO::PARAM_INT);
     $statement->bindParam(':transfer_code', $transferCode, PDO::PARAM_STR);
+    $statement->bindParam(':cost', $totalCost, PDO::PARAM_STR);
 
     try {
         $statement->execute();
         return (int) $database->lastInsertId();
     } catch (PDOException $e) {
+        echo "Error: " . $e->getMessage();
         return 0;
     }
 }
@@ -177,7 +198,7 @@ function getAddonDetails(PDO $database, array $selectedAddons): array
 // ============================
 
 // Generates an HTML calendar showing room availability
-// Return string HTML representation of the calendar
+// Returns string HTML representation of the calendar
 function generateCalendar(PDO $database, int $roomId, string $startDate): string
 {
     try {
@@ -186,19 +207,24 @@ function generateCalendar(PDO $database, int $roomId, string $startDate): string
 
         $rawEvents = getBookedDates($database, $roomId);
 
-        if (!$rawEvents) {
+        // Only handle valid results
+        if ($rawEvents === null || $rawEvents === false) {
             return "<p>Calendar data unavailable. Please try again later.</p>";
         }
 
-        $formattedEvents = array_map(function ($booking) {
-            return [
-                'start' => $booking['arrival_date'],
-                'end' => $booking['departure_date'],
-                'mask' => true,
-            ];
-        }, $rawEvents);
+        // Only add events if there are bookings
+        if (!empty($rawEvents)) {
+            $formattedEvents = array_map(function ($booking) {
+                return [
+                    'start' => $booking['arrival_date'],
+                    'end' => $booking['departure_date'],
+                    'mask' => true,
+                ];
+            }, $rawEvents);
 
-        $calendar->addEvents($formattedEvents);
+            $calendar->addEvents($formattedEvents);
+        }
+
         return $calendar->draw($startDate);
     } catch (Exception $e) {
         return "<p>Calendar unavailable due to an error.</p>";
