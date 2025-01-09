@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 require_once __DIR__ . '/vendor/autoload.php';
 require __DIR__ . '/includes/header.php';
 require __DIR__ . '/includes/functions.php';
@@ -9,8 +11,8 @@ $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
 // Get room prices and the cost for add-ons
-$roomPrices = getAllRoomPrices($database);
-$addons = getAddons($database);
+$roomPrices = getAllRoomPrices($database) ?? ['1' => 'N/A', '2' => 'N/A', '3' => 'N/A'];
+$addons = getAddons($database) ?? [];
 ?>
 
 <main>
@@ -18,6 +20,7 @@ $addons = getAddons($database);
     <section class="hero">
         <video autoplay muted loop playsinline class="background-video">
             <source src="./assets/images/whisker-haven-retreat.mp4" type="video/mp4">
+            Your browser does not support the video tag. Please upgrade to view this content.
         </video>
         <div class="hero-content">
             <h1>Whisker Haven Retreat</h1>
@@ -33,21 +36,21 @@ $addons = getAddons($database);
     <section id="about">
         <h2>About the Whisker Haven Retreat</h2>
         <div class="about-container">
-            <img src="./assets/images/sunset.jpg" alt="">
+            <img src="./assets/images/sunset.jpg" alt="Sunset view of Purradise Island">
             <article>
                 <h3>Welcome to Purradise Island</h3>
                 <p> Nestled in the heart of the tropics, Purradise Island is a haven for both cats and cat lovers. With its lush greenery, golden beaches, and crystal-clear waters, it’s the perfect escape from the hustle and bustle of everyday life. The island is home to a thriving cat sanctuary where every stay helps support rescue efforts.</p>
             </article>
         </div>
         <div class="about-container middle">
-            <img src="./assets/images/cat-lounge.png" alt="">
+            <img src="./assets/images/cat-lounge.png" alt="Outside view of cat lounge">
             <article>
                 <h3>Your Home Away from Home</h3>
                 <p>At The Whisker Haven Retreat, we combine luxury and compassion. Enjoy our beautifully designed cat-friendly rooms, each with direct access to our sanctuary. Guests can relax while helping our feline friends find forever homes. Whether you’re here to unwind or make a difference, you’ll leave with memories to cherish.</p>
             </article>
         </div>
         <div class="about-container">
-            <img src="./assets/images/kittens.jpg" alt="">
+            <img src="./assets/images/kittens.jpg" alt="Two kittens sitting on a table">
             <article>
                 <h3>Stay for the Cause</h3>
                 <p>Every booking at The Whisker Haven Retreat supports our rescue efforts. By staying with us, you help provide medical care, food, and shelter for our rescued cats. Meet our friendly residents, learn their stories, and even consider adopting your next furry companion!</p>
@@ -111,27 +114,25 @@ $addons = getAddons($database);
         <h2>Add-ons to your stay</h2>
         <div class="features">
             <div class="features-container">
-                <img src="./assets/images/rubiks-cube2.png" alt="">
+                <img src="./assets/images/rubiks-cube2.png" alt="Rubik's cube">
                 <h3>Rubik's cube</h3>
                 <p>Unwind and challenge your mind with our classic Rubik’s Cube! Whether you’re a beginner or a speedcubing pro, this timeless puzzle will keep you entertained during your stay. Complete the challenge and earn bonus points toward your tourist awards. It’s a fun way to relax and sharpen your skills</p>
                 <p class="price">Price: <?= $addons[0]['price']; ?></p>
-                <a href="#booking" class="cta" feature-id="1">Add a rubik's cube</a>
             </div>
             <div class="features-container">
-                <img src="./assets/images/minibar.png" alt="">
+                <img src="./assets/images/minibar.png" alt="Minibar">
                 <h3>Minibar</h3>
                 <p>Indulge in our premium minibar, stocked with refreshing beverages, tropical cocktails, and gourmet snacks. Perfect for a quiet evening in your room or a special celebration. Enjoy the taste of paradise at your convenience!</p>
                 <p class="price">Price: <?= $addons[1]['price']; ?></p>
-                <a href="#booking" class="cta" feature-id="2">Add a minibar</a>
             </div>
             <div class="features-container">
-                <img src="./assets/images/sibirian-cat.jpg" alt="">
+                <img src="./assets/images/sibirian-cat.jpg" alt="Sibirian cat">
                 <h3>Allergic? No problem!</h3>
                 <p>Are you a cat lover but struggle with allergies? Spend time with our hypoallergenic Siberian cats in a privacy of your own room. Enjoy their playful, gentle nature without the worry of allergens. It’s a heartwarming and unique experience for cat enthusiasts!</p>
                 <p class="price">Price: <?= $addons[2]['price']; ?></p>
-                <a href="#booking" class="cta" feature-id="3">Add a Sibirian cat</a>
             </div>
         </div>
+        <a href="#booking" class="cta">Book now!</a>
     </section>
 
     <!-- Booking section -->
@@ -155,20 +156,17 @@ $addons = getAddons($database);
                     <option value="3">Luxury Room - Cost: <?= $roomPrices[3]; ?></option>
                 </select>
 
-                <!-- Add-ons section -->
-                <?php
-
-                ?>
+                <!-- Add-ons -->
                 <div class="addons">
-                    <h3>Add-ons</h3>
+                    <h4>Add-ons</h4>
                     <?php foreach ($addons as $addon): ?>
-                        <label>
-                            <input type="checkbox" name="addons[]" value="<?= $addon['id']; ?>">
-                            <?= $addon['name']; ?> (Cost: <?= $addon['price']; ?>)
+                        <label class="addon-label">
+                            <span class="addon-text"><?= $addon['name']; ?> (Cost: <?= $addon['price']; ?>)</span>
+                            <input type="checkbox" name="addons[]" value="<?= $addon['id']; ?>" class="addon-checkbox">
                         </label>
                     <?php endforeach; ?>
                 </div>
-                <!-- End of Add-ons section -->
+                <!-- End of Add-ons-->
 
                 <label for="transfer_code">Transfer Code:</label>
                 <input type="text" name="transfer_code" required>
@@ -178,19 +176,18 @@ $addons = getAddons($database);
                 <button type="submit">Book Now</button>
             </form>
 
-
+            <!-- Calender -->
             <div class="calender-container">
-                <h3>Availability</h3>
-                <h4>Budget</h4>
-                <?php //Show the calender for room 1
+                <h3>Availability Budget Room</h3>
+                <?php // Show the calender for room 1
                 echo generateCalendar($database, 1, '2025-01-01');
                 ?>
-                <h4>Standard</h4>
-                <?php //Show the calender for room 2
+                <h3>Availability Standard Room</h3>
+                <?php // Show the calender for room 2
                 echo generateCalendar($database, 2, '2025-01-01');
                 ?>
-                <h4>Luxury</h4>
-                <?php //Show the calender for room 3
+                <h3>Availability Luxury Room</h3>
+                <?php // Show the calender for room 3
                 echo generateCalendar($database, 3, '2025-01-01');
                 ?>
             </div>
