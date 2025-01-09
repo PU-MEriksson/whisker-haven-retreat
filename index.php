@@ -160,8 +160,8 @@ $addons = getAddons($database) ?? [];
                     <h4>Add-ons</h4>
                     <?php foreach ($addons as $addon): ?>
                         <label class="addon-label">
-                            <span class="addon-text"><?= $addon['name']; ?> (Cost: <?= $addon['price']; ?>)</span>
                             <input type="checkbox" name="addons[]" value="<?= $addon['id']; ?>" class="addon-checkbox">
+                            <span class="addon-text"><?= $addon['name']; ?> (Cost: <?= $addon['price']; ?>)</span>
                         </label>
                     <?php endforeach; ?>
                 </div>
