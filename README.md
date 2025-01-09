@@ -49,8 +49,6 @@
   - Guzzle HTTP client for API communication
   - Environmental configuration with PHP dotenv
 
-[Previous sections remain the same until Tech Stack]
-
 ## 🔧 Tech Stack
 
 - **Frontend**:
