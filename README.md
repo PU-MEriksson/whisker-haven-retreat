@@ -49,16 +49,22 @@
   - Guzzle HTTP client for API communication
   - Environmental configuration with PHP dotenv
 
+[Previous sections remain the same until Tech Stack]
+
 ## 🔧 Tech Stack
 
-- **Frontend**: HTML, CSS
-- **Backend**: PHP
-- **Database**: SQLite
+- **Frontend**:
+  - HTML
+  - CSS
+  - JavaScript (Interactive features and dynamic price calculations)
+- **Backend**:
+  - PHP
+  - SQLite
 - **Additional Tools**:
-  - TablePlus
-  - Composer
-  - php-calendar
-  - Guzzle
+  - TablePlus (Database management)
+  - Composer (PHP package manager)
+  - php-calendar (Calendar visualization)
+  - Guzzle (HTTP client for API requests)
 
 ## 📂 Project Structure
 
