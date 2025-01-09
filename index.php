@@ -132,7 +132,6 @@ $addons = getAddons($database) ?? [];
                 <p class="price">Price: <?= $addons[2]['price']; ?></p>
             </div>
         </div>
-        <a href="#booking" class="cta">Book now!</a>
     </section>
 
     <!-- Booking section -->

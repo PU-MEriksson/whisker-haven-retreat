@@ -1,18 +1,9 @@
-:root {
-  --primary-dark: #bc6266; /*logo, headlines, background */
-  --primary-light: #ce8490; /*logo, headlines, buttons */
-  --neutral-light: #d3c4b3; /*backgrounds */
-  --neutral-dark: #e7b9ab; /*backgrounds*/
-  --accent-color: #d27d54; /*buttons, sections that need to stand out*/
-  --text-color: #33312e; /* text color */
-}
-
 .weekly-calendar {
   max-width: 850px;
 }
 
 .calendar {
-  background: var(--primary-light);
+  background: #f0c7bb;
   color: var(--text-color);
   width: 100%;
   font-family: "Poppins";
