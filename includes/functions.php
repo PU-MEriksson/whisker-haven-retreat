@@ -17,24 +17,6 @@ use benhall14\phpCalendar\Calendar;
 
 // Saves a new booking to the database
 // Returns the ID of the newly created booking, or 0 if creation fails
-// function saveBooking(PDO $database, string $visitorName, int $roomId, string $arrivalDate, string $departureDate, string $transferCode): int
-// {
-//     $query = 'INSERT INTO bookings (visitor_name, arrival_date, departure_date, room_id, transfer_code) VALUES (:visitor_name, :arrival_date, :departure_date, :room_id, :transfer_code)';
-//     $statement = $database->prepare($query);
-
-//     $statement->bindParam(':visitor_name', $visitorName, PDO::PARAM_STR);
-//     $statement->bindParam(':arrival_date', $arrivalDate, PDO::PARAM_STR);
-//     $statement->bindParam(':departure_date', $departureDate, PDO::PARAM_STR);
-//     $statement->bindParam(':room_id', $roomId, PDO::PARAM_INT);
-//     $statement->bindParam(':transfer_code', $transferCode, PDO::PARAM_STR);
-
-//     try {
-//         $statement->execute();
-//         return (int) $database->lastInsertId();
-//     } catch (PDOException $e) {
-//         return 0;
-//     }
-// }
 function saveBooking(PDO $database, string $visitorName, int $roomId, string $arrivalDate, string $departureDate, string $transferCode, float $totalCost): int
 {
     $query = 'INSERT INTO bookings (visitor_name, arrival_date, departure_date, room_id, transfer_code, cost) 
