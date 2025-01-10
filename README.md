@@ -140,3 +140,19 @@ Here's an overview of the database structure:
 ## 📜 License
 
 This project is licensed under the MIT License.
+
+## Feedback
+
+js-data.php - Ensure files are placed in the correct folders for better organization and clarity (PHP file found in JavaScript folder).
+
+script.js: 27 - Consider moving the calculateTotalCost() function outside the event listener for better code modularity and reusability.
+
+js-data.php, database.php - Add declare(strict_types=1); at the top of the PHP files to enforce strict type checking. This improves code reliability and prevents unexpected type coercion.
+
+database.php: 7, 15 - Avoid using die() for error handling. Instead, use a method like http_response_code() followed by exit; for better control over HTTP responses and improved readability.
+
+index.php - Refrain from declaring strict_types in files that mix PHP and HTML. Strict typing is typically reserved for PHP-only files for consistency and clarity.
+
+booking.php: 16, 18 - Input is not sanitized, posing a potential security risk (e.g., SQL injection, XSS). Implement proper sanitation and validation mechanisms.
+
+style.css - The file is excessively long. Consider splitting it into smaller, logically grouped files (e.g., layout.css, typography.css, forms.css) to improve maintainability and readability.
