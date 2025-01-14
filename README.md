@@ -64,23 +64,6 @@
   - php-calendar (Calendar visualization)
   - Guzzle (HTTP client for API requests)
 
-## 📂 Project Structure
-
-```plaintext
-├── database/
-│   ├── hotel.db         # SQLite database
-├── includes/
-│   ├── functions.php    # Reusable PHP functions
-│   ├── header.php       # HTML header
-│   ├── footer.php       # HTML footer
-├── assets/
-│   ├── images/          # Images used in the project
-│   ├── js/              # JavaScript files
-├── booking.php          # Handles booking logic
-├── index.php           # Main entry point
-├── LICENSE             # Project license
-├── README.md           # Project documentation
-```
 
 ## 🗂️ Database Schema
 
