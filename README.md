@@ -67,7 +67,7 @@
 
 ## 🗂️ Database Schema
 
-Here's an overview of the database structure:
+Overview of the database structure:
 
 ### `bookings`
 
