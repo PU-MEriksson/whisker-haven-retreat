@@ -124,18 +124,17 @@ Overview of the database structure:
 
 This project is licensed under the MIT License.
 
-## Feedback
+## 🛠️ Reflections and Areas for Improvement
 
-js-data.php - Ensure files are placed in the correct folders for better organization and clarity (PHP file found in JavaScript folder).
+This project was created as part of a school assignment, with the main focus on backend development, API integration, and maintaining a clear code structure. I'm proud of some
+ 
+- Organized file structure and modular, well-organised code   
+- Meaningful version control with consistent and descriptive commit history
 
-script.js: 27 - Consider moving the calculateTotalCost() function outside the event listener for better code modularity and reusability.
+At the same time, there are a few areas I would improve if I had more time:
 
-js-data.php, database.php - Add declare(strict_types=1); at the top of the PHP files to enforce strict type checking. This improves code reliability and prevents unexpected type coercion.
+- **Accessibility (a11y):** Color contrasts could be optimised for better readability  
+- **Visual design:** Layout and color choices could be refined for a more polished and modern look  
+- **Responsiveness:** This site is made for desktop only, so that it could be improved to work on smaller screens as well.  
 
-database.php: 7, 15 - Avoid using die() for error handling. Instead, use a method like http_response_code() followed by exit; for better control over HTTP responses and improved readability.
-
-index.php - Refrain from declaring strict_types in files that mix PHP and HTML. Strict typing is typically reserved for PHP-only files for consistency and clarity.
-
-booking.php: 16, 18 - Input is not sanitized, posing a potential security risk (e.g., SQL injection, XSS). Implement proper sanitation and validation mechanisms.
-
-style.css - The file is excessively long. Consider splitting it into smaller, logically grouped files (e.g., layout.css, typography.css, forms.css) to improve maintainability and readability.
+While I’m currently focusing on other projects, I’m aware of these issues and will carry those lessons forward into future work.
